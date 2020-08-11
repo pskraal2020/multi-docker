@@ -16,7 +16,7 @@ after_succes:
   - docker build -t pskraal/multi-nginx ./multi-nginx
   - docker build -t pskraal/multi-server ./server
   # Log in to the docker CLI 
-  - echo "$DOCKER_PASSSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub 
   - docker push pskraal/multi-client
   - docker push pskraal/multi-nginx
