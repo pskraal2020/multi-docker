@@ -12,8 +12,8 @@ script:
 
 after_succes: 
   - docker build -t pskraal/multi-client ./client
-  - docker build -t pskraal/multi-worker ./multi-worker 
-  - docker build -t pskraal/multi-nginx ./multi-nginx
+  - docker build -t pskraal/multi-worker ./worker 
+  - docker build -t pskraal/multi-nginx ./nginx
   - docker build -t pskraal/multi-server ./server
   # Log in to the docker CLI 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
