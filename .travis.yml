@@ -1,3 +1,4 @@
+language: generic
 sudo: required
 services:
   - docker
@@ -6,4 +7,18 @@ before_install:
   - docker build -t pskraal/react-test -f ./client/Dockerfile.dev ./client
 
 script: 
-  - docker run pskraal/react-test npm test -- --coverage
+  - docker run -e CI=true pskraal/react-test npm test 
+
+
+after_succes: 
+  - docker build -t pskraal/multi-client ./client
+  - docker build -t pskraal/multi-worker ./multi-worker 
+  - docker build -t pskraal/multi-nginx ./multi-nginx
+  - docker build -t pskraal/multi-server ./server
+  # Log in to the docker CLI 
+  - echo "$DOCKER_PASSSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub 
+  - docker push pskraal/multi-client
+  - docker push pskraal/multi-nginx
+  - docker push pskraal/multi-worker
+  - docker push pskraal/multi-server
