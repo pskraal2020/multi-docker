@@ -1,0 +1,9 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t pskraal/react-test -f ./client/Dockerfile.dev ./client
+
+script: 
+  - docker run pskraal/react-test npm test -- --coverage
